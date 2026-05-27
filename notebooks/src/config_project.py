@@ -1,0 +1,53 @@
+# Databricks notebook source
+from pathlib import Path
+
+import configparser
+import os
+
+# COMMAND ----------
+
+# ==================== READ CONFIG INI ====================
+config = configparser.ConfigParser()
+config.read(r"/Workspace/Users/lucas.srodrigues1805@gmail.com/brasil_indicadores/ini/config.ini")
+
+# ==================== DEFINE VARIABLES ====================
+project_path   = Path(config.get('config','project_path'))
+
+# COMMAND ----------
+
+
+# ==================== CREATE FOLDERS ====================
+Path(f"{project_path}/data/landing_zone").mkdir(parents=True,exist_ok=True)
+Path(f"{project_path}/data/bronze").mkdir(parents=True,exist_ok=True)
+Path(f"{project_path}/data/silver").mkdir(parents=True,exist_ok=True)
+Path(f"{project_path}/data/gold").mkdir(parents=True,exist_ok=True)
+
+Path(f"{project_path}/env").mkdir(parents=True,exist_ok=True)
+Path(f"{project_path}/ini").mkdir(parents=True,exist_ok=True)
+
+Path(f"{project_path}/notebooks/src").mkdir(parents=True,exist_ok=True)
+Path(f"{project_path}/notebooks/validation").mkdir(parents=True,exist_ok=True)
+
+Path(f"{project_path}/docs").mkdir(parents=True,exist_ok=True)
+
+
+# COMMAND ----------
+
+# ==================== CREATE .GITIGNORE ====================
+
+#FOLDER DATA
+path_data = Path(f"{project_path}/data")
+content = "*"
+
+with open(path_data / ".gitignore", "w") as file:
+    file.write(content)
+
+#FOLDER ENV
+path_env = Path(f"{project_path}/env")
+
+with open(path_env / ".gitignore", "w") as file:
+    file.write(content)
+
+
+
+
