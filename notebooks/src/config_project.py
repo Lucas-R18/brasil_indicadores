@@ -51,3 +51,17 @@ with open(path_env / ".gitignore", "w") as file:
 
 
 
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC /* ------------------------------------------------------------------------------------------------------------------------------------ */
+# MAGIC -- create database
+# MAGIC
+# MAGIC create catalog if not exists indicadores_brasil;
+# MAGIC
+# MAGIC create schema if not exists indicadores_brasil.bronze;
+# MAGIC create schema if not exists indicadores_brasil.silver;
+# MAGIC create schema if not exists indicadores_brasil.gold;
+# MAGIC
+# MAGIC
