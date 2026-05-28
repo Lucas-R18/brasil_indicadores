@@ -1,14 +1,24 @@
 # Databricks notebook source
-from pathlib import Path
+# ================= IMPORT CONFIG PROJECT =================
 
-import configparser
+# COMMAND ----------
+
+# MAGIC %run ../utils/config_project
+
+# COMMAND ----------
+
+from pathlib import Path
 import os
 
 # COMMAND ----------
 
-# ==================== READ CONFIG INI ====================
-config = configparser.ConfigParser()
-config.read(r"/Workspace/Users/lucas.srodrigues1805@gmail.com/brasil_indicadores/ini/config.ini")
+config          = config_ini()
+project_path    = Path(config.get('config','project_path'))
+
+# COMMAND ----------
+
+# ==================== READ FILE CONFIG INI ====================
+config = config_ini()
 
 # ==================== DEFINE VARIABLES ====================
 project_path   = Path(config.get('config','project_path'))
@@ -47,9 +57,6 @@ path_env = Path(f"{project_path}/env")
 
 with open(path_env / ".gitignore", "w") as file:
     file.write(content)
-
-
-
 
 
 # COMMAND ----------

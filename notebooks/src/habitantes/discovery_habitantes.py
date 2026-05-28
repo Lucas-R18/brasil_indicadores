@@ -1,4 +1,12 @@
 # Databricks notebook source
+# ================= IMPORT CONFIG PROJECT =================
+
+# COMMAND ----------
+
+# MAGIC %run ../utils/config_project
+
+# COMMAND ----------
+
 # ==================== IMPORT LIBS ====================
 from datetime   import datetime
 from pathlib    import Path
@@ -13,8 +21,7 @@ import os
 # COMMAND ----------
 
 # ==================== READ CONFIG INI ====================
-config = configparser.ConfigParser()
-config.read(r"/Workspace/Users/lucas.srodrigues1805@gmail.com/brasil_indicadores/ini/config.ini")
+config = config_ini()
 
 # ==================== DEFINE VARIABLES ====================
 project_path        = Path(config.get('config','project_path'))
@@ -112,3 +119,16 @@ df = (
 # MAGIC     indicadores_brasil.bronze.estimativa_populacao_municipios
 # MAGIC where
 # MAGIC     lower(municipio_codigo) <> lower('Município (Código)');  
+
+# COMMAND ----------
+
+df = spark.sql("""
+    select 
+        * 
+    from 
+        indicadores_brasil.silver.estimativa_populacao_municipios
+""")
+
+df = df.toPandas()
+
+df.to_excel("estimativa_populacao_municipios.xlsx",index = False)
